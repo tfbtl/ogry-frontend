@@ -19,7 +19,6 @@ const extractValidationErrors = (
   if (!raw) return undefined;
 
   const normalized: Record<string, string[]> = {};
-
   for (const [key, value] of Object.entries(raw)) {
     if (isStringArray(value)) {
       normalized[key] = value;
@@ -32,13 +31,17 @@ const extractValidationErrors = (
 export const isProblemDetails = (payload: unknown): boolean => {
   if (!isRecord(payload)) return false;
 
+  // RFC7807 + our extensions (code/messageKey/validationErrors/traceId)
   return (
+    "type" in payload ||
+    "title" in payload ||
+    "detail" in payload ||
+    "instance" in payload ||
+    "status" in payload ||
     "code" in payload ||
     "messageKey" in payload ||
     "errors" in payload ||
     "validationErrors" in payload ||
-    "title" in payload ||
-    "detail" in payload ||
     "traceId" in payload
   );
 };
@@ -56,12 +59,9 @@ export const toAppError = (
 
   if (!isRecord(payload)) return base;
 
-  const code =
-    typeof payload.code === "string" ? payload.code : base.code;
+  const code = typeof payload.code === "string" ? payload.code : base.code;
   const messageKey =
-    typeof payload.messageKey === "string"
-      ? payload.messageKey
-      : base.messageKey;
+    typeof payload.messageKey === "string" ? payload.messageKey : base.messageKey;
   const details = typeof payload.detail === "string" ? payload.detail : undefined;
   const traceId = typeof payload.traceId === "string" ? payload.traceId : undefined;
   const validationErrors = extractValidationErrors(payload);
@@ -76,4 +76,5 @@ export const toAppError = (
     validationErrors,
   };
 };
+
 

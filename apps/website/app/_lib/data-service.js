@@ -1,5 +1,6 @@
 import { eachDayOfInterval } from "date-fns";
 import { notFound } from "next/navigation";
+import { HttpClient } from "@ogrency/http";
 import {
   fetchCabin,
   fetchCabinPrice,
@@ -121,11 +122,10 @@ export async function getSettings() {
 
 export async function getCountries() {
   try {
-    const res = await fetch(
-      "https://restcountries.com/v2/all?fields=name,flag",
-    );
-    const countries = await res.json();
-    return countries;
+    const http = new HttpClient({ baseURL: "https://restcountries.com" });
+    const result = await http.get("/v2/all?fields=name,flag");
+    if (!result.ok) throw new Error("Could not fetch countries");
+    return result.data;
   } catch {
     throw new Error("Could not fetch countries");
   }
