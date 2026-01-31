@@ -1,5 +1,5 @@
 import type { ICabinService } from "../../shared/interfaces/ICabinService";
-import type { Result } from "../../shared/types/foundation";
+import type { Result } from "@ogrency/core";
 import type { Cabin, CreateCabinInput, UpdateCabinInput } from "../../shared/types/cabin";
 import { ok, err, errorFromException } from "../../shared/utils/errorHelpers";
 import { supabase } from "../../supabase";

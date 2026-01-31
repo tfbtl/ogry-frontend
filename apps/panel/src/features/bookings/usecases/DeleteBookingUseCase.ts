@@ -1,5 +1,5 @@
 import type { IBookingService } from "../../../shared/interfaces/IBookingService";
-import type { Result } from "../../../shared/types/foundation";
+import type { Result } from "@ogrency/core";
 
 /**
  * DeleteBookingUseCase - Business logic for deleting a booking

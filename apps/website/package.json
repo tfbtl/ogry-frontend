@@ -1,5 +1,5 @@
 {
-  "name": "test",
+  "name": "@ogrency/website",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
+    "@ogrency/core": "workspace:*",
     "@supabase/supabase-js": "^2.90.1",
     "date-fns": "^4.1.0",
     "next": "16.1.1",

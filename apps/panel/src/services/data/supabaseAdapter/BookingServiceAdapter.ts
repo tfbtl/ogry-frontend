@@ -1,5 +1,5 @@
 import type { IBookingService } from "../../../shared/interfaces/IBookingService";
-import type { Result } from "../../../shared/types/foundation";
+import type { Result } from "@ogrency/core";
 import type { Booking, BookingInput } from "../../../shared/types/booking";
 import { ok, err, errorFromException, handleAuthError, createAppError } from "../../../shared/utils/errorHelpers";
 import { supabase } from "./supabaseClient";

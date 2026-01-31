@@ -4,6 +4,7 @@ const nextConfig = {
   /* config options here */
   reactCompiler: true,
   //trailingSlash: true,
+  transpilePackages: ["@ogrency/core"],
 
   images: {
     unoptimized: true, // ✅ export modunda şart

@@ -1,6 +1,6 @@
-import type { IUserService } from "../../shared/interfaces/IUserService";
-import type { Result } from "../../shared/types/foundation";
-import type { UserProfile } from "../../shared/types/user";
+import type { IUserService } from "../../../shared/interfaces/IUserService";
+import type { Result } from "@ogrency/core";
+import type { UserProfile } from "../../../shared/types/user";
 
 /**
  * GetCurrentUserUseCase - Business logic for retrieving current user profile

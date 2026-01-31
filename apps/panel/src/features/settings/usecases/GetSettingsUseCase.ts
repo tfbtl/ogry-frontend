@@ -1,5 +1,5 @@
 import type { ISettingsService } from "../../../shared/interfaces/ISettingsService";
-import type { Result } from "../../../shared/types/foundation";
+import type { Result } from "@ogrency/core";
 import type { Settings } from "../../../shared/types/settings";
 
 /**

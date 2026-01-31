@@ -1,4 +1,4 @@
-import type { Result } from "../../shared/types/foundation";
+import type { Result } from "@ogrency/core";
 import { ok } from "../../shared/utils/errorHelpers";
 import { featureFlags } from "../config/featureFlags";
 

@@ -1,4 +1,4 @@
-import type { Result } from "../types/foundation";
+import type { Result } from "@ogrency/core";
 import type { AuthSession, LoginInput } from "../types/auth";
 
 /**

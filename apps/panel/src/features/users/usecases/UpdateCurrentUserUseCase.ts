@@ -1,5 +1,5 @@
 import type { IUserService } from "../../../shared/interfaces/IUserService";
-import type { Result } from "../../../shared/types/foundation";
+import type { Result } from "@ogrency/core";
 import type { UserProfile, UpdateUserInput } from "../../../shared/types/user";
 
 /**

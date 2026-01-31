@@ -1,4 +1,4 @@
-import type { AppError, Result } from "../shared/types/foundation";
+import type { AppError, Result } from "@ogrency/core";
 import { emitAuthEvent } from "../auth/authEvents";
 import { newCorrelationId } from "./correlation";
 import { isProblemDetails, toAppError } from "./problemDetails";

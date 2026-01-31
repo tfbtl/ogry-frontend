@@ -1,4 +1,4 @@
-import type { AppError } from "../shared/types/foundation";
+import type { AppError } from "@ogrency/core";
 
 const isRecord = (payload: unknown): payload is Record<string, unknown> =>
   typeof payload === "object" && payload !== null;

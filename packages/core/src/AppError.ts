@@ -1,7 +1,3 @@
-export type Result<T> =
-  | { ok: true; data: T }
-  | { ok: false; error: AppError };
-
 export type AppError = {
   code: string;
   messageKey: string;
@@ -18,4 +14,5 @@ export type UIFriendlyError = {
   traceId?: string;
   fieldErrors?: Record<string, string[]>;
 };
+
 

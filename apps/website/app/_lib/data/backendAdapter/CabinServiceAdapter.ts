@@ -1,5 +1,5 @@
 import type { ICabinService } from "../../shared/interfaces/ICabinService";
-import type { Result } from "../../shared/types/foundation";
+import type { Result } from "@ogrency/core";
 import type { Cabin, CreateCabinInput, UpdateCabinInput } from "../../shared/types/cabin";
 import { ok, err } from "../../shared/utils/errorHelpers";
 import * as apiClient from "../../api/apiClient";
@@ -66,7 +66,7 @@ export class BackendCabinServiceAdapter implements ICabinService {
   async getCabins(): Promise<Result<Cabin[]>> {
     const result = await apiClient.get<CabinDto[]>(`${this.baseUrl}/cabins`);
 
-    if (!result.ok) {
+    if (result.ok === false) {
       return err(result.error);
     }
 
@@ -77,7 +77,7 @@ export class BackendCabinServiceAdapter implements ICabinService {
   async getCabin(id: string | number): Promise<Result<Cabin>> {
     const result = await apiClient.get<CabinDto>(`${this.baseUrl}/cabins/${id}`);
 
-    if (!result.ok) {
+    if (result.ok === false) {
       return err(result.error);
     }
 

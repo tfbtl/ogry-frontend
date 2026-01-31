@@ -1,4 +1,4 @@
-import type { AppError, Result } from "../types/foundation";
+import type { AppError, Result } from "@ogrency/core";
 import { emitAuthEvent } from "../../services/auth/authEvents";
 
 /**

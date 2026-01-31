@@ -1,5 +1,5 @@
 import type { IAuthService } from "../../../shared/interfaces/IAuthService";
-import type { Result } from "../../../shared/types/foundation";
+import type { Result } from "@ogrency/core";
 
 /**
  * LogoutUseCase - Business logic for ending user session

@@ -1,0 +1,12 @@
+# Monorepo ignores (root)
+node_modules/
+apps/**/node_modules/
+packages/**/node_modules/
+.turbo/
+**/.next/
+**/dist/
+**/build/
+.env*
+pnpm-debug.log*
+
+

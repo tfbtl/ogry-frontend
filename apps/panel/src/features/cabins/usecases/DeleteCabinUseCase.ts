@@ -1,5 +1,5 @@
 import type { ICabinService } from "../../../shared/interfaces/ICabinService";
-import type { Result } from "../../../shared/types/foundation";
+import type { Result } from "@ogrency/core";
 
 /**
  * DeleteCabinUseCase - Business logic for deleting a cabin

@@ -1,6 +1,6 @@
-import type { IAuthService } from "../../shared/interfaces/IAuthService";
-import type { Result } from "../../shared/types/foundation";
-import type { AuthSession } from "../../shared/types/auth";
+import type { IAuthService } from "../../../shared/interfaces/IAuthService";
+import type { Result } from "@ogrency/core";
+import type { AuthSession } from "../../../shared/types/auth";
 
 /**
  * GetSessionUseCase - Business logic for retrieving current session

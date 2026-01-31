@@ -1,6 +1,6 @@
-import type { ISettingsService } from "../../shared/interfaces/ISettingsService";
-import type { Result } from "../../shared/types/foundation";
-import type { Settings, UpdateSettingsInput } from "../../shared/types/settings";
+import type { ISettingsService } from "../../../shared/interfaces/ISettingsService";
+import type { Result } from "@ogrency/core";
+import type { Settings, UpdateSettingsInput } from "../../../shared/types/settings";
 
 /**
  * UpdateSettingsUseCase - Business logic for updating settings
