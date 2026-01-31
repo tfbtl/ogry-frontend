@@ -1,4 +1,4 @@
-import { auth } from "../_lib/auth";
+import { auth } from "../_server/auth";
 
 export const metadata = {
   title: "Guest Area",

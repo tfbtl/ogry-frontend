@@ -1,4 +1,4 @@
-import { supabase } from "../../supabase";
+import { supabase } from "../../../_server/supabase";
 
 const ensureArray = (value, errorMessage) => {
   if (!Array.isArray(value)) throw new Error(errorMessage);

@@ -2,7 +2,7 @@ import type { IUserService } from "../../shared/interfaces/IUserService";
 import type { Result } from "@ogrency/core";
 import type { UserProfile, SignupInput, UpdateUserInput } from "../../shared/types/user";
 import { ok, err, errorFromException, handleAuthError, createAppError } from "../../shared/utils/errorHelpers";
-import { auth } from "../../auth";
+import { auth } from "../../../_server/auth";
 
 /**
  * UserServiceAdapter - NextAuth implementation of IUserService

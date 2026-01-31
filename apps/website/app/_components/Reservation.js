@@ -1,4 +1,4 @@
-import { auth } from "../_lib/auth";
+import { auth } from "../_server/auth";
 import { getBookedDatesByCabinId, getSettings } from "../_lib/data-service";
 import DateSelector from "./DateSelector";
 import LoginMessage from "./LoginMessage";

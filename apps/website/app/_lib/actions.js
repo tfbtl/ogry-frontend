@@ -1,7 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { auth, signIn, signOut } from "./auth";
+import { auth, signIn, signOut } from "../_server/auth";
 import { redirect } from "next/navigation";
 import { getBookings } from "./data-service";
 import {
