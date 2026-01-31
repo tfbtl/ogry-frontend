@@ -1,0 +1,17 @@
+{
+  "name": "ogrency-monorepo",
+  "private": true,
+  "version": "0.0.0",
+  "packageManager": "pnpm@9.15.0",
+  "scripts": {
+    "dev": "turbo run dev --parallel",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "validate:boundaries": "turbo run validate:boundaries",
+    "clean": "rm -rf node_modules .turbo apps/**/node_modules packages/**/node_modules"
+  },
+  "devDependencies": {
+    "turbo": "^2.3.0"
+  }
+}
+
