@@ -20,9 +20,9 @@ importers:
       '@ogrency/http':
         specifier: workspace:*
         version: link:../../packages/http
-      '@supabase/supabase-js':
-        specifier: ^2.89.0
-        version: 2.93.3
+      '@ogrency/supabase-public':
+        specifier: workspace:^
+        version: link:../../packages/providers/supabase-public
       '@tanstack/react-query':
         specifier: ^5.90.12
         version: 5.90.20(react@19.2.3)
@@ -102,6 +102,9 @@ importers:
       '@ogrency/http':
         specifier: workspace:*
         version: link:../../packages/http
+      '@ogrency/supabase-public':
+        specifier: workspace:*
+        version: link:../../packages/providers/supabase-public
       '@supabase/supabase-js':
         specifier: ^2.90.1
         version: 2.93.3
@@ -161,6 +164,12 @@ importers:
       axios:
         specifier: ^1.13.4
         version: 1.13.4
+
+  packages/providers/supabase-public:
+    dependencies:
+      '@supabase/supabase-js':
+        specifier: ^2.93.3
+        version: 2.93.3
 
   packages/tsconfig: {}
 

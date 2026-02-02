@@ -1,0 +1,14 @@
+{
+  "name": "@ogrency/supabase-public",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "types": "./src/index.ts",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.93.3"
+  }
+}

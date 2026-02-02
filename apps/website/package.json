@@ -15,6 +15,7 @@
     "@heroicons/react": "^2.2.0",
     "@ogrency/core": "workspace:*",
     "@ogrency/http": "workspace:*",
+    "@ogrency/supabase-public": "workspace:*",
     "@supabase/supabase-js": "^2.90.1",
     "date-fns": "^4.1.0",
     "next": "16.1.1",

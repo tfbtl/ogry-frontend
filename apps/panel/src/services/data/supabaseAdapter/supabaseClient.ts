@@ -4,10 +4,12 @@
  * This file provides a canonical import point for all adapters.
  * It proxies the real Supabase client from the services layer.
  * 
- * Real Source: src/services/supabase.js
+ * Real Source: src/services/supabasePublicClient.ts
  * Export Shape: default export (supabase) + named export (supabaseUrl)
  */
-import supabase, { supabaseUrl } from "../../supabase";
+import { supabase } from "../../supabasePublicClient";
+import { supabasePublicConfig } from "../../config/supabasePublicConfig";
 
-export { supabase, supabaseUrl };
+export const supabaseUrl = supabasePublicConfig.url;
+export { supabase };
 
