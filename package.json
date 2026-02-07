@@ -8,6 +8,7 @@
     "build": "turbo run build",
     "lint": "turbo run lint",
     "validate:boundaries": "turbo run validate:boundaries",
+    "validate:env-imports": "node tools/gates/validate-env-and-imports.mjs",
     "clean": "rm -rf node_modules .turbo apps/**/node_modules packages/**/node_modules"
   },
   "devDependencies": {
