@@ -1,12 +1,13 @@
 #!/usr/bin/env node
 
 /**
- * FE-GATE-0002 — Boundary Enforcement Gate
+ * FE-GATE-0003 — Boundary Enforcement Gate (v2.4.0 underscoreless)
  * 
- * Enforces 3 architectural rules:
+ * Enforces 4 architectural rules:
  * - Rule A: Env reads only in composition root
  * - Rule B: Direct Supabase SDK import forbidden (public flow)
  * - Rule C: Deep import into @ogrency packages forbidden
+ * - Rule D: Website server boundary enforcement
  */
 
 import { readFileSync, readdirSync, statSync } from 'fs';
@@ -18,15 +19,20 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const repoRoot = join(__dirname, '..', '..');
 
-// Allowed composition root files (Rule A exceptions)
-const ALLOWED_ENV_FILES = [
-  'apps/panel/src/_composition/config.ts',
-  'apps/website/app/_composition/config.ts',
+// Allowed composition root folders (Rule A exceptions - v2.4.0 underscoreless)
+// Note: During migration, both old (_composition) and new (composition) paths are allowed
+const ALLOWED_COMPOSITION_FOLDERS = [
+  'apps/panel/src/composition',
+  'apps/panel/src/_composition',  // Legacy (migration in progress)
+  'apps/website/app/composition',
+  'apps/website/app/_composition',  // Legacy (migration in progress)
 ];
 
-// Allowed server-only folders (Rule A & B exceptions)
+// Allowed server-only folders (Rule A & B exceptions - v2.4.0 underscoreless)
+// Note: During migration, both old (_server) and new (server) paths are allowed
 const ALLOWED_SERVER_FOLDERS = [
-  'apps/website/app/_server',
+  'apps/website/app/server',
+  'apps/website/app/_server',  // Legacy (migration in progress)
 ];
 
 // Allowed packages for Supabase SDK import (Rule B exceptions - these are wrapper packages)
@@ -82,6 +88,15 @@ const RULES = {
     ],
     description: 'Deep import into @ogrency package (must use package root)',
   },
+  D: {
+    name: 'SERVER_BOUNDARY_VIOLATION',
+    patterns: [
+      /from\s+['"][^'"]*\/server\/[^'"]*['"]/,
+      /require\s*\(\s*['"][^'"]*\/server\/[^'"]*['"]/,
+      /import\s+.*\s+from\s+['"][^'"]*\/server\/[^'"]*['"]/,
+    ],
+    description: 'Import from server/** outside allowed boundaries',
+  },
 };
 
 let violations = [];
@@ -96,7 +111,17 @@ function shouldIgnore(filePath) {
 }
 
 /**
- * Check if file is in allowed server folder (Rule A & B exceptions)
+ * Check if file is in allowed composition folder (Rule A exception - v2.4.0 underscoreless)
+ */
+function isInAllowedCompositionFolder(filePath) {
+  return ALLOWED_COMPOSITION_FOLDERS.some(folder => {
+    const normalizedPath = filePath.replace(/\\/g, '/');
+    return normalizedPath.includes(folder);
+  });
+}
+
+/**
+ * Check if file is in allowed server folder (Rule A & B exceptions - v2.4.0 underscoreless)
  */
 function isInAllowedServerFolder(filePath) {
   return ALLOWED_SERVER_FOLDERS.some(folder => {
@@ -116,11 +141,53 @@ function isInAllowedSupabasePackage(filePath) {
 }
 
 /**
- * Check if file is allowed composition root (Rule A exception)
+ * Check if file is in website server folder (Rule D check)
+ * Note: During migration, both old (_server) and new (server) paths are checked
  */
-function isAllowedEnvFile(filePath) {
+function isInWebsiteServerFolder(filePath) {
   const normalizedPath = filePath.replace(/\\/g, '/');
-  return ALLOWED_ENV_FILES.some(allowed => normalizedPath.endsWith(allowed));
+  return normalizedPath.includes('apps/website/app/server') || 
+         normalizedPath.includes('apps/website/app/_server');  // Legacy
+}
+
+/**
+ * Check if file is in website composition folder (Rule D exception)
+ * Note: During migration, both old (_composition) and new (composition) paths are checked
+ */
+function isInWebsiteCompositionFolder(filePath) {
+  const normalizedPath = filePath.replace(/\\/g, '/');
+  return normalizedPath.includes('apps/website/app/composition') || 
+         normalizedPath.includes('apps/website/app/_composition');  // Legacy
+}
+
+/**
+ * Check if import string references server folder (Rule D check)
+ * Note: Detects both old (_server) and new (server) paths
+ */
+function isServerImport(importString) {
+  // Check for relative paths containing /server/ or /_server/
+  if (importString.includes('/server/') || 
+      importString.includes('/_server/') || 
+      importString.includes('../server/') || 
+      importString.includes('../_server/') || 
+      importString.includes('./server/') || 
+      importString.includes('./_server/')) {
+    return true;
+  }
+  // Check for alias patterns containing /server/ or /_server/
+  if (importString.match(/['"]@\/.*\/server\//) || 
+      importString.match(/['"]@\/.*\/_server\//) || 
+      importString.match(/['"]@\/server\//) || 
+      importString.match(/['"]@\/_server\//) || 
+      importString.match(/['"]app\/server\//) || 
+      importString.match(/['"]app\/_server\//)) {
+    return true;
+  }
+  // Check for direct server/ or _server/ prefix
+  if (importString.match(/['"]server\//) || importString.match(/['"]_server\//)) {
+    return true;
+  }
+  return false;
 }
 
 /**
@@ -168,8 +235,8 @@ function checkFile(filePath, relativePath) {
     const content = readFileSync(filePath, 'utf-8');
     const lines = content.split('\n');
     
-    // Rule A: Env reads (exception: composition root + server-only folders)
-    if (!isAllowedEnvFile(relativePath) && !isInAllowedServerFolder(relativePath)) {
+    // Rule A: Env reads (exception: composition folders + server-only folders - v2.4.0 underscoreless)
+    if (!isInAllowedCompositionFolder(relativePath) && !isInAllowedServerFolder(relativePath)) {
       for (const pattern of RULES.A.patterns) {
         lines.forEach((line, index) => {
           if (pattern.test(line)) {
@@ -216,6 +283,34 @@ function checkFile(filePath, relativePath) {
         }
       });
     }
+    
+    // Rule D: Server boundary enforcement (website only)
+    // Only check files under apps/website/app/** (not server/** or composition/** themselves)
+    if (relativePath.includes('apps/website/app/') && 
+        !isInWebsiteServerFolder(relativePath) && 
+        !isInWebsiteCompositionFolder(relativePath)) {
+      // Check all import patterns
+      for (const pattern of RULES.D.patterns) {
+        lines.forEach((line, index) => {
+          if (pattern.test(line)) {
+            // Additional check: verify it's actually a server import
+            const importMatch = line.match(/from\s+['"]([^'"]+)['"]|require\s*\(\s*['"]([^'"]+)['"]|import\s+.*\s+from\s+['"]([^'"]+)['"]/);
+            if (importMatch) {
+              const importPath = importMatch[1] || importMatch[2] || importMatch[3];
+              if (isServerImport(importPath)) {
+                violations.push({
+                  rule: 'D',
+                  ruleName: RULES.D.name,
+                  file: relativePath,
+                  line: index + 1,
+                  snippet: line.trim().substring(0, 80),
+                });
+              }
+            }
+          }
+        });
+      }
+    }
   } catch (err) {
     // Skip files that can't be read
     return;
@@ -226,7 +321,7 @@ function checkFile(filePath, relativePath) {
  * Main execution
  */
 function main() {
-  console.log('🔍 FE-GATE-0002: Validating env reads, Supabase imports, and deep imports...\n');
+  console.log('🔍 FE-GATE-0003: Validating env reads, Supabase imports, deep imports, and server boundaries...\n');
   
   // Scan target directories
   for (const targetDir of TARGET_DIRS) {
