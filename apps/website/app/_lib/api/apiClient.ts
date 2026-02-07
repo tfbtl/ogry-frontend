@@ -1,8 +1,9 @@
 import type { Result } from "@ogrency/core";
 import { HttpClient } from "@ogrency/http";
+import { apiUrl } from "../../_composition/config";
 
 const httpClient = new HttpClient({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || "",
+  baseURL: apiUrl,
 });
 
 export const get = async <T>(url: string): Promise<Result<T>> =>

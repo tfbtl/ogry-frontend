@@ -20,6 +20,11 @@ export const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
 export const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";
 
 /**
+ * Backend API Configuration
+ */
+export const apiUrl = process.env.NEXT_PUBLIC_API_URL || "";
+
+/**
  * Feature Flags
  */
 export const featureFlags = {

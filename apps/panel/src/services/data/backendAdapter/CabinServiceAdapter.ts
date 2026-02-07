@@ -3,6 +3,7 @@ import type { Result } from "@ogrency/core";
 import type { Cabin, CreateCabinInput, UpdateCabinInput } from "../../../shared/types/cabin";
 import { ok, err } from "../../../shared/utils/errorHelpers";
 import * as apiClient from "../../http/apiClient";
+import { apiUrl } from "../../../_composition/config";
 
 /**
  * CabinDto - Backend API response shape
@@ -38,7 +39,6 @@ export class BackendCabinServiceAdapter implements ICabinService {
   private readonly baseUrl: string;
 
   constructor() {
-    const apiUrl = import.meta.env.VITE_API_URL;
     if (!apiUrl) {
       throw new Error("VITE_API_URL environment variable is required");
     }

@@ -13,6 +13,11 @@ export const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 export const supabaseAnonKey = import.meta.env.VITE_SUPABASE_KEY;
 
 /**
+ * Backend API Configuration
+ */
+export const apiUrl = import.meta.env.VITE_API_URL;
+
+/**
  * Feature Flags
  */
 export const featureFlags = {
