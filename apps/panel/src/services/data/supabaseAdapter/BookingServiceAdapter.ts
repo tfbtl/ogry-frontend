@@ -4,6 +4,7 @@ import type { Booking, BookingInput } from "../../../shared/types/booking";
 import { ok, err, errorFromException, handleAuthError, createAppError } from "../../../shared/utils/errorHelpers";
 import { supabase } from "./supabaseClient";
 import { PAGE_SIZE } from "../../../utils/constants";
+import { getToday } from "../../../utils/helpers";
 
 /**
  * BookingServiceAdapter - Supabase implementation of IBookingService
@@ -171,6 +172,114 @@ export class BookingServiceAdapter implements IBookingService {
         errorFromException(
           error instanceof Error ? error : new Error("Unknown error"),
           "BOOKING_DELETE_ERROR",
+          500
+        )
+      );
+      return err(appError);
+    }
+  }
+
+  /**
+   * Returns all BOOKINGS that were created after the given date.
+   * Useful to get bookings created in the last 30 days, for example.
+   */
+  async getBookingsAfterDate(date: string): Promise<Result<Array<{ created_at: string; totalPrice: number; extrasPrice: number }>>> {
+    try {
+      const { data, error } = await supabase
+        .from("bookings")
+        .select("created_at, totalPrice, extrasPrice")
+        .gte("created_at", date)
+        .lte("created_at", getToday({ end: true }));
+
+      if (error) {
+        const appError = handleAuthError(
+          errorFromException(
+            new Error("Bookings could not get loaded"),
+            "BOOKINGS_LOAD_ERROR",
+            500
+          )
+        );
+        return err(appError);
+      }
+
+      return ok((data || []) as Array<{ created_at: string; totalPrice: number; extrasPrice: number }>);
+    } catch (error) {
+      const appError = handleAuthError(
+        errorFromException(
+          error instanceof Error ? error : new Error("Unknown error"),
+          "BOOKINGS_LOAD_ERROR",
+          500
+        )
+      );
+      return err(appError);
+    }
+  }
+
+  /**
+   * Returns all STAYS that were created after the given date.
+   */
+  async getStaysAfterDate(date: string): Promise<Result<Booking[]>> {
+    try {
+      const { data, error } = await supabase
+        .from("bookings")
+        .select("*, guests(fullName)")
+        .gte("startDate", date)
+        .lte("startDate", getToday());
+
+      if (error) {
+        const appError = handleAuthError(
+          errorFromException(
+            new Error("Bookings could not get loaded"),
+            "BOOKINGS_LOAD_ERROR",
+            500
+          )
+        );
+        return err(appError);
+      }
+
+      return ok((data || []) as Booking[]);
+    } catch (error) {
+      const appError = handleAuthError(
+        errorFromException(
+          error instanceof Error ? error : new Error("Unknown error"),
+          "BOOKINGS_LOAD_ERROR",
+          500
+        )
+      );
+      return err(appError);
+    }
+  }
+
+  /**
+   * Activity means that there is a check in or a check out today.
+   */
+  async getStaysTodayActivity(): Promise<Result<Booking[]>> {
+    try {
+      const { data, error } = await supabase
+        .from("bookings")
+        .select("*, guests(fullName, nationality, countryFlag)")
+        .or(
+          `and(status.eq.unconfirmed,startDate.eq.${getToday()}),and(status.eq.checked-in,endDate.eq.${getToday()})`
+        )
+        .order("created_at");
+
+      if (error) {
+        const appError = handleAuthError(
+          errorFromException(
+            new Error("Bookings could not get loaded"),
+            "BOOKINGS_LOAD_ERROR",
+            500
+          )
+        );
+        return err(appError);
+      }
+
+      return ok((data || []) as Booking[]);
+    } catch (error) {
+      const appError = handleAuthError(
+        errorFromException(
+          error instanceof Error ? error : new Error("Unknown error"),
+          "BOOKINGS_LOAD_ERROR",
           500
         )
       );
