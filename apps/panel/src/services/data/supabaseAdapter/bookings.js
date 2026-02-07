@@ -1,3 +1,6 @@
+/**
+ * @deprecated Migration Pending — use TS adapter path (BookingServiceAdapter.ts)
+ */
 import { getToday } from "../../../utils/helpers";
 import { PAGE_SIZE } from "../../../utils/constants";
 import { supabase } from "./supabaseClient";

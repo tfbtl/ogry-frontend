@@ -1,3 +1,6 @@
+/**
+ * @deprecated Migration Pending — use TS adapter path (AuthServiceAdapter.ts)
+ */
 import { supabase, supabaseUrl } from "./supabaseClient";
 
 const isRecord = (value) => value && typeof value === "object";

@@ -1,5 +1,6 @@
-import { createSupabasePublicClient } from "@ogrency/supabase-public";
-import { supabasePublicConfig } from "./config/supabasePublicConfig";
-
-export const supabase = createSupabasePublicClient(supabasePublicConfig);
+/**
+ * @deprecated Migration Pending — use _composition/supabasePublicClient.ts
+ * This file is kept for backward compatibility during migration.
+ */
+export { supabasePublicClient as supabase } from "../_composition/supabasePublicClient";
 

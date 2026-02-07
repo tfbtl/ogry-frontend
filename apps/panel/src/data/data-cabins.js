@@ -1,6 +1,6 @@
-import { supabasePublicConfig } from "../services/config/supabasePublicConfig";
+import { supabaseUrl } from "../_composition/config";
 
-const imageUrl = `${supabasePublicConfig.url}/storage/v1/object/public/cabin-images/`;
+const imageUrl = `${supabaseUrl}/storage/v1/object/public/cabin-images/`;
 
 export const cabins = [
   {

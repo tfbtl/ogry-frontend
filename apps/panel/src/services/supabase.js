@@ -1,6 +1,11 @@
-import { supabase as supabaseClient } from "./supabasePublicClient";
-import { supabasePublicConfig } from "./config/supabasePublicConfig";
+/**
+ * Legacy Supabase Export (Deprecated)
+ * 
+ * @deprecated Migration Pending — use @ogrency/cabins or _composition/supabasePublicClient
+ * This file is kept for backward compatibility during migration.
+ */
+import { supabasePublicClient } from "../_composition/supabasePublicClient";
+import { supabaseUrl } from "../_composition/config";
 
-export const supabaseUrl = supabasePublicConfig.url;
-
-export default supabaseClient;
+export { supabaseUrl };
+export default supabasePublicClient;

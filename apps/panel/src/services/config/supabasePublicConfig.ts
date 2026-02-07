@@ -1,6 +1,12 @@
+/**
+ * @deprecated Migration Pending — use _composition/config.ts
+ * This file is kept for backward compatibility during migration.
+ */
+import { supabaseUrl, supabaseAnonKey } from "../../_composition/config";
+
 export const supabasePublicConfig = {
-  url: import.meta.env.VITE_SUPABASE_URL,
-  anonKey: import.meta.env.VITE_SUPABASE_KEY,
+  url: supabaseUrl,
+  anonKey: supabaseAnonKey,
   options: {
     auth: {
       persistSession: true,

@@ -1,3 +1,6 @@
+/**
+ * @deprecated Migration Pending — use TS adapter path
+ */
 import { supabase } from "../../../_server/supabase";
 
 const ensureArray = (value, errorMessage) => {

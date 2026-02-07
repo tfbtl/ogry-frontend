@@ -1,3 +1,6 @@
+/**
+ * @deprecated Migration Pending — use TS adapter path (SettingsServiceAdapter.ts)
+ */
 import { supabase } from "./supabaseClient";
 
 export async function getSettings() {

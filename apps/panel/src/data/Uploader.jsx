@@ -26,27 +26,37 @@ import { guests } from "./data-guests";
 
 async function deleteGuests() {
   const { error } = await deleteGuestsAdapter();
-  if (error) console.log(error.message);
+  if (error) {
+    // Error handling: TODO - use toast/error boundary instead of console
+  }
 }
 
 async function deleteCabins() {
   const { error } = await deleteCabinsAdapter();
-  if (error) console.log(error.message);
+  if (error) {
+    // Error handling: TODO - use toast/error boundary instead of console
+  }
 }
 
 async function deleteBookings() {
   const { error } = await deleteBookingsAdapter();
-  if (error) console.log(error.message);
+  if (error) {
+    // Error handling: TODO - use toast/error boundary instead of console
+  }
 }
 
 async function createGuests() {
   const { error } = await createGuestsAdapter(guests);
-  if (error) console.log(error.message);
+  if (error) {
+    // Error handling: TODO - use toast/error boundary instead of console
+  }
 }
 
 async function createCabins() {
   const { error } = await createCabinsAdapter(cabins);
-  if (error) console.log(error.message);
+  if (error) {
+    // Error handling: TODO - use toast/error boundary instead of console
+  }
 }
 
 async function createBookings() {
@@ -98,7 +108,9 @@ async function createBookings() {
   });
 
   const { error } = await createBookingsAdapter(finalBookings);
-  if (error) console.log(error.message);
+  if (error) {
+    // Error handling: TODO - use toast/error boundary instead of console
+  }
 }
 
 function Uploader() {

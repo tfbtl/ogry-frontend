@@ -1,3 +1,6 @@
+/**
+ * @deprecated Migration Pending — use TS adapter path (CabinServiceAdapter.ts)
+ */
 import { supabase, supabaseUrl } from "./supabaseClient";
 
 const isRecord = (value) => value && typeof value === "object";
