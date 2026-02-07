@@ -14,6 +14,9 @@ importers:
 
   apps/panel:
     dependencies:
+      '@ogrency/cabins':
+        specifier: workspace:^
+        version: link:../../packages/cabins
       '@ogrency/core':
         specifier: workspace:*
         version: link:../../packages/core
@@ -96,6 +99,9 @@ importers:
       '@heroicons/react':
         specifier: ^2.2.0
         version: 2.2.0(react@19.2.3)
+      '@ogrency/cabins':
+        specifier: workspace:^
+        version: link:../../packages/cabins
       '@ogrency/core':
         specifier: workspace:*
         version: link:../../packages/core
@@ -103,7 +109,7 @@ importers:
         specifier: workspace:*
         version: link:../../packages/http
       '@ogrency/supabase-public':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../../packages/providers/supabase-public
       '@supabase/supabase-js':
         specifier: ^2.90.1
@@ -151,6 +157,8 @@ importers:
       tailwindcss:
         specifier: ^4
         version: 4.1.18
+
+  packages/cabins: {}
 
   packages/core: {}
 

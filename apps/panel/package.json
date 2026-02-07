@@ -12,6 +12,7 @@
     "validate:boundaries": "node scripts/validate-boundaries.js"
   },
   "dependencies": {
+    "@ogrency/cabins": "workspace:^",
     "@ogrency/core": "workspace:*",
     "@ogrency/http": "workspace:*",
     "@ogrency/supabase-public": "workspace:^",
