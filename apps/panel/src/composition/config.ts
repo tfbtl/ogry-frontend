@@ -10,7 +10,8 @@
  */
 
 export const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-export const supabaseAnonKey = import.meta.env.VITE_SUPABASE_KEY;
+export const supabaseAnonKey =
+  import.meta.env.VITE_SUPABASE_KEY || import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 /**
  * Backend API Configuration
