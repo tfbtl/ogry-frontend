@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * FE-GATE-0003 — Boundary Enforcement Gate (v2.4.0 underscoreless)
+ * FE-GATE-0004 — Boundary Enforcement Gate (v2.4.0 underscoreless)
  * 
  * Enforces 4 architectural rules:
  * - Rule A: Env reads only in composition root
@@ -20,19 +20,14 @@ const __dirname = dirname(__filename);
 const repoRoot = join(__dirname, '..', '..');
 
 // Allowed composition root folders (Rule A exceptions - v2.4.0 underscoreless)
-// Note: During migration, both old (_composition) and new (composition) paths are allowed
 const ALLOWED_COMPOSITION_FOLDERS = [
   'apps/panel/src/composition',
-  'apps/panel/src/_composition',  // Legacy (migration in progress)
   'apps/website/app/composition',
-  'apps/website/app/_composition',  // Legacy (migration in progress)
 ];
 
 // Allowed server-only folders (Rule A & B exceptions - v2.4.0 underscoreless)
-// Note: During migration, both old (_server) and new (server) paths are allowed
 const ALLOWED_SERVER_FOLDERS = [
   'apps/website/app/server',
-  'apps/website/app/_server',  // Legacy (migration in progress)
 ];
 
 // Allowed packages for Supabase SDK import (Rule B exceptions - these are wrapper packages)
@@ -142,49 +137,38 @@ function isInAllowedSupabasePackage(filePath) {
 
 /**
  * Check if file is in website server folder (Rule D check)
- * Note: During migration, both old (_server) and new (server) paths are checked
  */
 function isInWebsiteServerFolder(filePath) {
   const normalizedPath = filePath.replace(/\\/g, '/');
-  return normalizedPath.includes('apps/website/app/server') || 
-         normalizedPath.includes('apps/website/app/_server');  // Legacy
+  return normalizedPath.includes('apps/website/app/server');
 }
 
 /**
  * Check if file is in website composition folder (Rule D exception)
- * Note: During migration, both old (_composition) and new (composition) paths are checked
  */
 function isInWebsiteCompositionFolder(filePath) {
   const normalizedPath = filePath.replace(/\\/g, '/');
-  return normalizedPath.includes('apps/website/app/composition') || 
-         normalizedPath.includes('apps/website/app/_composition');  // Legacy
+  return normalizedPath.includes('apps/website/app/composition');
 }
 
 /**
  * Check if import string references server folder (Rule D check)
- * Note: Detects both old (_server) and new (server) paths
  */
 function isServerImport(importString) {
-  // Check for relative paths containing /server/ or /_server/
+  // Check for relative paths containing /server/
   if (importString.includes('/server/') || 
-      importString.includes('/_server/') || 
       importString.includes('../server/') || 
-      importString.includes('../_server/') || 
-      importString.includes('./server/') || 
-      importString.includes('./_server/')) {
+      importString.includes('./server/')) {
     return true;
   }
-  // Check for alias patterns containing /server/ or /_server/
+  // Check for alias patterns containing /server/
   if (importString.match(/['"]@\/.*\/server\//) || 
-      importString.match(/['"]@\/.*\/_server\//) || 
       importString.match(/['"]@\/server\//) || 
-      importString.match(/['"]@\/_server\//) || 
-      importString.match(/['"]app\/server\//) || 
-      importString.match(/['"]app\/_server\//)) {
+      importString.match(/['"]app\/server\//)) {
     return true;
   }
-  // Check for direct server/ or _server/ prefix
-  if (importString.match(/['"]server\//) || importString.match(/['"]_server\//)) {
+  // Check for direct server/ prefix
+  if (importString.match(/['"]server\//)) {
     return true;
   }
   return false;
@@ -261,7 +245,7 @@ function checkFile(filePath, relativePath) {
     const content = readFileSync(filePath, 'utf-8');
     const lines = content.split('\n');
     
-    // Rule A: Env reads (exception: composition folders + server-only folders - v2.4.0 underscoreless)
+    // Rule A: Env reads (exception: composition folders + server-only folders)
     if (!isInAllowedCompositionFolder(relativePath) && !isInAllowedServerFolder(relativePath)) {
       for (const pattern of RULES.A.patterns) {
         lines.forEach((line, index) => {
@@ -354,7 +338,7 @@ function checkFile(filePath, relativePath) {
  * Main execution
  */
 function main() {
-  console.log('🔍 FE-GATE-0003: Validating env reads, Supabase imports, deep imports, and server boundaries...\n');
+  console.log('🔍 FE-GATE-0004: Validating env reads, Supabase imports, deep imports, and server boundaries...\n');
   
   // Scan target directories
   for (const targetDir of TARGET_DIRS) {

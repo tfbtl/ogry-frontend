@@ -54,14 +54,11 @@ const ALLOWED_COMPOSITION_FOLDERS = [
 - ✅ Added `apps/website/app/server` as allowed folder (server-only env)
 
 **Allowed Paths (v2.4.0):**
-- `apps/panel/src/composition/**` — Panel composition root (new)
-- `apps/panel/src/_composition/**` — Panel composition root (legacy, migration support)
-- `apps/website/app/composition/**` — Website composition root (new)
-- `apps/website/app/_composition/**` — Website composition root (legacy, migration support)
-- `apps/website/app/server/**` — Website server-only zone (new)
-- `apps/website/app/_server/**` — Website server-only zone (legacy, migration support)
+- `apps/panel/src/composition/**` — Panel composition root
+- `apps/website/app/composition/**` — Website composition root
+- `apps/website/app/server/**` — Website server-only zone
 
-**Note:** Legacy paths are temporarily allowed during migration period. They will be removed in a future gate version.
+**Note:** Legacy underscore paths (`_composition`, `_server`) were removed in FE-GATE-0004. Only underscoreless paths are now allowed.
 
 ---
 
@@ -87,11 +84,10 @@ const ALLOWED_SERVER_FOLDERS = [
 - ✅ Removed underscore prefix (`_server` → `server`)
 
 **Allowed Paths (v2.4.0):**
-- `apps/website/app/server/**` — Server-only zone (secrets, new)
-- `apps/website/app/_server/**` — Server-only zone (secrets, legacy, migration support)
+- `apps/website/app/server/**` — Server-only zone (secrets)
 - `packages/providers/supabase-public/**` — Approved wrapper package
 
-**Note:** Legacy `_server` path is temporarily allowed during migration period. It will be removed in a future gate version.
+**Note:** Legacy `_server` path was removed in FE-GATE-0004. Only underscoreless paths are now allowed.
 
 ---
 
@@ -236,10 +232,10 @@ if (relativePath.includes('apps/website/app/') &&
 - Efficient folder-based allowlist checks
 - No heavy dependencies required
 
-**Migration Support:**
-- Gate temporarily allows both old (`_composition`, `_server`) and new (`composition`, `server`) paths
-- This enables gradual migration without breaking CI
-- Legacy paths will be removed in a future gate version after migration is complete
+**Migration Status:**
+- Legacy underscore paths (`_composition`, `_server`) were removed in FE-GATE-0004
+- Only underscoreless paths (`composition`, `server`) are now enforced
+- Migration completed in FE-LEGACY-MIGRATE-0001-P3
 
 ---
 
@@ -252,9 +248,9 @@ if (relativePath.includes('apps/website/app/') &&
 ### 8.2 Required Actions
 
 **For Developers:**
-- Update imports from `_composition` → `composition`
-- Update imports from `_server` → `server`
+- Use only underscoreless paths (`composition`, `server`, `lib`)
 - Ensure server/** imports only from allowed locations
+- Legacy underscore paths are no longer supported
 
 **For CI:**
 - Gate now enforces Rule D (server boundary)
