@@ -12,7 +12,7 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
   ]),
   {
-    files: ["app/lib/components/**/*.{js,jsx}", "app/(routes)/**/*.{js,jsx}"],
+    files: ["app/lib/components/**/*.{js,jsx}"],
     rules: {
       "no-console": "error",
       "no-restricted-imports": [

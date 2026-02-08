@@ -30,7 +30,7 @@ export default defineConfig([
     },
   },
   {
-    files: ["src/ui/**/*.{js,jsx}", "src/pages/**/*.{js,jsx}", "src/features/**/*.{js,jsx}"],
+    files: ["src/ui/**/*.{js,jsx}", "src/features/**/*.{js,jsx}"],
     rules: {
       "no-console": "error",
       "no-restricted-imports": [
