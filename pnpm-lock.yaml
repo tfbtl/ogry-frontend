@@ -17,6 +17,9 @@ importers:
       '@ogrency/cabins':
         specifier: workspace:^
         version: link:../../packages/cabins
+      '@ogrency/config':
+        specifier: workspace:*
+        version: link:../../packages/config
       '@ogrency/core':
         specifier: workspace:*
         version: link:../../packages/core
@@ -102,6 +105,9 @@ importers:
       '@ogrency/cabins':
         specifier: workspace:^
         version: link:../../packages/cabins
+      '@ogrency/config':
+        specifier: workspace:*
+        version: link:../../packages/config
       '@ogrency/core':
         specifier: workspace:*
         version: link:../../packages/core
@@ -159,6 +165,8 @@ importers:
         version: 4.1.18
 
   packages/cabins: {}
+
+  packages/config: {}
 
   packages/core: {}
 

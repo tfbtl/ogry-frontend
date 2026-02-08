@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@ogrency/cabins": "workspace:^",
+    "@ogrency/config": "workspace:*",
     "@ogrency/core": "workspace:*",
     "@ogrency/http": "workspace:*",
     "@ogrency/supabase-public": "workspace:^",

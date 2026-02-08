@@ -1,31 +1,29 @@
 /**
  * Panel Configuration (Composition Root)
- * 
+ *
  * Single source of truth for environment variable reading.
- * 
+ * Env is read here only, then normalized via @ogrency/config.
+ *
  * Rules:
  * - ALL env reads happen ONLY in this file
  * - UI components must import from here, never raw env
  * - NO console logging
  */
 
-export const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-export const supabaseAnonKey =
-  import.meta.env.VITE_SUPABASE_KEY || import.meta.env.VITE_SUPABASE_ANON_KEY;
+import { normalizeViteClientEnv } from "@ogrency/config";
+
+const config = normalizeViteClientEnv(import.meta.env);
+
+export const supabaseUrl = config.supabaseUrl;
+export const supabaseAnonKey = config.supabaseAnonKey;
 
 /**
  * Backend API Configuration
  */
-export const apiUrl = import.meta.env.VITE_API_URL;
+export const apiUrl = config.apiUrl;
 
 /**
  * Feature Flags
  */
-export const featureFlags = {
-  /**
-   * Use Backend API for Cabins instead of Supabase
-   * Default: false (Supabase active)
-   */
-  useBackendCabins: import.meta.env.VITE_USE_BACKEND_CABINS === "true",
-};
+export const featureFlags = config.featureFlags;
 

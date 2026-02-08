@@ -14,6 +14,7 @@
   "dependencies": {
     "@heroicons/react": "^2.2.0",
     "@ogrency/cabins": "workspace:^",
+    "@ogrency/config": "workspace:*",
     "@ogrency/core": "workspace:*",
     "@ogrency/http": "workspace:*",
     "@ogrency/supabase-public": "workspace:^",
