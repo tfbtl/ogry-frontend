@@ -48,7 +48,7 @@ Tüm client-safe config bu dört alan (ve ileride eklenen canonical alanlar) üz
 | Canonical | Panel (Vite) | Website Next Client | Website Next Server | Mobile (RN) |
 |-----------|--------------|---------------------|--------------------|------------|
 | supabaseUrl | VITE_SUPABASE_URL | NEXT_PUBLIC_SUPABASE_URL | (server-only ayrı) | (TBD) |
-| supabaseAnonKey | VITE_SUPABASE_ANON_KEY (veya VITE_SUPABASE_KEY compat) | NEXT_PUBLIC_SUPABASE_ANON_KEY | (server-only ayrı) | (TBD) |
+| supabaseAnonKey | VITE_SUPABASE_ANON_KEY | NEXT_PUBLIC_SUPABASE_ANON_KEY | (server-only ayrı) | (TBD) |
 | apiUrl | VITE_API_URL | NEXT_PUBLIC_API_URL | (server-only ayrı) | (TBD) |
 | featureFlags.useBackendCabins | VITE_USE_BACKEND_CABINS | NEXT_PUBLIC_USE_BACKEND_CABINS | (TBD) | (TBD) |
 
@@ -79,9 +79,8 @@ Tüm client-safe config bu dört alan (ve ileride eklenen canonical alanlar) üz
 
 ## 7) Backward Compatibility Policy (kademeli kaldırma)
 
-- Yeni env isimleri eklenirken **eski isimler kademeli kaldırılır**. Örnek: Panel’de hem `VITE_SUPABASE_KEY` hem `VITE_SUPABASE_ANON_KEY` kabul edilebilir; önce yeni isim tercih edilir, eski isim fallback olarak okunur.
-- Eski ismin kaldırılması ayrı bir görevle (migration/cleanup) yapılır; bu doküman sadece “backward compat kabul edilir” politikasını yazar.
-- **Örnek:** normalize fonksiyonunda `VITE_SUPABASE_ANON_KEY || VITE_SUPABASE_KEY` gibi sıra ile her iki key de desteklenebilir.
+- Yeni env isimleri eklenirken **eski isimler kademeli kaldırılabilir**; kaldırma ayrı görevle (migration/cleanup) yapılır.
+- **VITE_SUPABASE_KEY fallback:** FE-CONFIG-DEPRECATION-0001 ile kaldırıldı; Panel için yalnızca canonical key `VITE_SUPABASE_ANON_KEY` kullanılır.
 
 ---
 
@@ -89,7 +88,7 @@ Tüm client-safe config bu dört alan (ve ileride eklenen canonical alanlar) üz
 
 **Panel (.env / .env.local) key isimleri:**
 - VITE_SUPABASE_URL
-- VITE_SUPABASE_ANON_KEY (veya backward compat: VITE_SUPABASE_KEY)
+- VITE_SUPABASE_ANON_KEY
 - VITE_API_URL
 - VITE_USE_BACKEND_CABINS
 

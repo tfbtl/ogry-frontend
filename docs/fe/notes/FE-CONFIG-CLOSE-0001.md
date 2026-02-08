@@ -49,8 +49,7 @@ Yeni canonical key eklenmesi bu listeyi ve ilgili standardı güncellemeyi gerek
 
 ## 5) Backward Compatibility Window (VITE_SUPABASE_KEY fallback planı)
 
-- **Mevcut durum:** normalizeViteClientEnv içinde supabaseAnonKey için önce VITE_SUPABASE_ANON_KEY, yoksa VITE_SUPABASE_KEY okunuyor. İkisi de yoksa boş string.
-- **Kilitlenen karar:** VITE_SUPABASE_KEY fallback destekleniyor; kademeli kaldırma ayrı bir görevle yapılacak. Bu kapanış dokümanı fallback’in varlığını sabitler; kaldırma tarihi veya adımı burada tanımlı değil.
+- **Güncel durum:** VITE_SUPABASE_KEY fallback kaldırıldı (FE-CONFIG-DEPRECATION-0001). Panel için yalnızca canonical key VITE_SUPABASE_ANON_KEY kullanılır.
 
 ---
 

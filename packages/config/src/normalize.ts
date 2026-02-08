@@ -9,7 +9,6 @@ import type { ClientConfig, FeatureFlags } from "./schema";
 /** Vite exposes import.meta.env with VITE_* keys. */
 export interface ImportMetaEnvLike {
   VITE_SUPABASE_URL?: string;
-  VITE_SUPABASE_KEY?: string;
   VITE_SUPABASE_ANON_KEY?: string;
   VITE_API_URL?: string;
   VITE_USE_BACKEND_CABINS?: string;
@@ -18,11 +17,9 @@ export interface ImportMetaEnvLike {
 
 /**
  * Normalize Vite client env (import.meta.env) to canonical client config.
- * Backward compat: VITE_SUPABASE_KEY used if VITE_SUPABASE_ANON_KEY not set.
  */
 export function normalizeViteClientEnv(env: ImportMetaEnvLike): ClientConfig {
-  const supabaseAnonKey =
-    env.VITE_SUPABASE_ANON_KEY || env.VITE_SUPABASE_KEY || "";
+  const supabaseAnonKey = env.VITE_SUPABASE_ANON_KEY ?? "";
   return {
     supabaseUrl: env.VITE_SUPABASE_URL ?? "",
     supabaseAnonKey,
