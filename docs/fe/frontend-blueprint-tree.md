@@ -189,7 +189,7 @@ rules:
 
 ### 2.3 apps/* overrides
 
-apps/website/src/i18n/
+apps/website/app/i18n/
 ├── init.ts
 └── locales/
     ├── tr/
@@ -275,31 +275,28 @@ rules:
 
 ## 5) APPS STRUCTURE (UNDERSCORELESS)
 
-### 5.1 Website (Next.js)
+### 5.1 Website (Next.js App Router)
 
 apps/website/
-├── app/                                 # routing only (Next App Router)
-│   └── (marketing)/cabins/page.tsx
-│
-└── src/                                 # app implementation
+└── app/                                 # Next.js App Router (routing + app implementation)
+    ├── (marketing)/cabins/page.tsx      # routes (file-based routing)
+    ├── composition/                     # DI root (env read + singletons)
     ├── server/                          # 🔒 ONLY server zone (no client imports)
-    │   ├── adapters/
-    │   └── auth.ts
-    │
+    │   ├── auth.js
+    │   └── supabase.js
+    ├── lib/                             # shared lib, data adapters, services
     ├── adapters/
     │   └── client/
-    │
     ├── cqrs/
     ├── features/
-    ├── composition/                     # DI root (env read + singletons)
     ├── config/                          # optional (non-env config, constants)
-    ├── i18n/
-    └── lib/
+    └── i18n/
 
 rules:
 - server-only imports enforced by gates
 - UI must not read env
 - adapters never used directly in UI
+- composition, server, lib live under app/ (underscoreless)
 
 ---
 
