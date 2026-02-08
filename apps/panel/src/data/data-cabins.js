@@ -1,4 +1,4 @@
-import { supabaseUrl } from "../_composition/config";
+import { supabaseUrl } from "../composition/config";
 
 const imageUrl = `${supabaseUrl}/storage/v1/object/public/cabin-images/`;
 

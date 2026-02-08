@@ -2,7 +2,7 @@ import type { ISettingsService } from "../../shared/interfaces/ISettingsService"
 import type { Result } from "@ogrency/core";
 import type { Settings, UpdateSettingsInput } from "../../shared/types/settings";
 import { ok, err, errorFromException, handleAuthError, createAppError } from "../../shared/utils/errorHelpers";
-import { supabase } from "../../../_server/supabase";
+import { supabase } from "../../../server/supabase";
 
 /**
  * SettingsServiceAdapter - Supabase implementation of ISettingsService

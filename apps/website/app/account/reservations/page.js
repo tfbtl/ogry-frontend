@@ -1,6 +1,6 @@
 import ReservationList from "@/app/_components/ReservationList";
-import { auth } from "@/app/_server/auth";
-import { getBookings } from "@/app/_lib/data-service";
+import { auth } from "@/app/server/auth";
+import { getBookings } from "@/app/lib/data-service";
 import Link from "next/link";
 
 export const metadata = {

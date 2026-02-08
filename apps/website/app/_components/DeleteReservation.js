@@ -1,7 +1,7 @@
 "use client";
 
 import { TrashIcon } from "@heroicons/react/24/solid";
-import { deleteReservationAction } from "../_lib/actions";
+import { deleteReservationAction } from "../lib/actions";
 import { useTransition } from "react";
 import SpinnerMini from "./SpinnerMini";
 

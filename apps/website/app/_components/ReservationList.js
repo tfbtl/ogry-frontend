@@ -1,6 +1,6 @@
 "use client";
 
-import { deleteBookingAction } from "../_lib/actions";
+import { deleteBookingAction } from "../lib/actions";
 import ReservationCard from "./ReservationCard";
 import { useOptimistic } from "react";
 

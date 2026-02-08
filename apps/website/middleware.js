@@ -5,7 +5,7 @@
 //   return NextResponse.redirect(new URL("/about", request.url));
 // }
 
-import { auth } from "@/app/_server/auth";
+import { auth } from "@/app/server/auth";
 export const middleware = auth;
 
 export const config = {

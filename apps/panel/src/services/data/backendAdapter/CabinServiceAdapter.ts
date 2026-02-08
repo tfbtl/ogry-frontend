@@ -3,7 +3,7 @@ import type { Result } from "@ogrency/core";
 import type { Cabin, CreateCabinInput, UpdateCabinInput } from "../../../shared/types/cabin";
 import { ok, err } from "../../../shared/utils/errorHelpers";
 import * as apiClient from "../../http/apiClient";
-import { apiUrl } from "../../../_composition/config";
+import { apiUrl } from "../../../composition/config";
 
 /**
  * CabinDto - Backend API response shape

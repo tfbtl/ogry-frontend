@@ -228,6 +228,32 @@ function scanDirectory(dirPath, relativePath = '') {
 }
 
 /**
+ * Check if file is a server component or server action (Rule D exception)
+ */
+function isServerComponentOrAction(filePath, content) {
+  const normalizedPath = filePath.replace(/\\/g, '/');
+  // Server actions
+  if (content.includes('"use server"') || content.includes("'use server'")) {
+    return true;
+  }
+  // API routes
+  if (normalizedPath.includes('/api/') || normalizedPath.includes('/route.js') || normalizedPath.includes('/route.ts')) {
+    return true;
+  }
+  // Next.js page components (server by default unless "use client")
+  if ((normalizedPath.includes('/page.js') || normalizedPath.includes('/page.tsx') || normalizedPath.includes('/page.ts')) &&
+      !content.includes('"use client"') && !content.includes("'use client'")) {
+    return true;
+  }
+  // Server components (no "use client" directive)
+  if (normalizedPath.includes('/_components/') && 
+      !content.includes('"use client"') && !content.includes("'use client'")) {
+    return true;
+  }
+  return false;
+}
+
+/**
  * Check file for violations
  */
 function checkFile(filePath, relativePath) {
@@ -286,9 +312,16 @@ function checkFile(filePath, relativePath) {
     
     // Rule D: Server boundary enforcement (website only)
     // Only check files under apps/website/app/** (not server/** or composition/** themselves)
+    // Exceptions:
+    // - lib/data/supabaseAdapter/** can import from server (they are adapters)
+    // - Server components and server actions can import from server
+    const isInSupabaseAdapter = relativePath.includes('apps/website/app/lib/data/supabaseAdapter/');
+    const isServerComponent = isServerComponentOrAction(filePath, content);
     if (relativePath.includes('apps/website/app/') && 
         !isInWebsiteServerFolder(relativePath) && 
-        !isInWebsiteCompositionFolder(relativePath)) {
+        !isInWebsiteCompositionFolder(relativePath) &&
+        !isInSupabaseAdapter &&
+        !isServerComponent) {
       // Check all import patterns
       for (const pattern of RULES.D.patterns) {
         lines.forEach((line, index) => {

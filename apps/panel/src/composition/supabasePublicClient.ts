@@ -7,7 +7,7 @@
  * Rules:
  * - Browser/public client only
  * - Singleton export
- * - Config injected from _composition/config.ts
+ * - Config injected from composition/config.ts
  */
 
 import { createSupabasePublicClient } from "@ogrency/supabase-public";

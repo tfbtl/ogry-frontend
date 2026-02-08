@@ -2,7 +2,8 @@ import type { IUserService } from "../../shared/interfaces/IUserService";
 import type { Result } from "@ogrency/core";
 import type { UserProfile, SignupInput, UpdateUserInput } from "../../shared/types/user";
 import { ok, err, errorFromException, handleAuthError, createAppError } from "../../shared/utils/errorHelpers";
-import { auth } from "../../../_server/auth";
+import { auth } from "../../../server/auth";
+import { supabase } from "../../../server/supabase";
 
 /**
  * UserServiceAdapter - NextAuth implementation of IUserService
@@ -71,6 +72,101 @@ export class UserServiceAdapter implements IUserService {
       )
     );
     return err(appError);
+  }
+
+  // Guest operations (legacy support)
+  async getGuestByEmail(email: string): Promise<Result<unknown | null>> {
+    try {
+      const { data, error } = await supabase
+        .from("guests")
+        .select("*")
+        .eq("email", email)
+        .single();
+
+      if (error) {
+        if (error.code === "PGRST116") {
+          return ok(null);
+        }
+        return err(
+          errorFromException(
+            new Error("Guest could not be loaded"),
+            "GUEST_LOAD_ERROR",
+            500
+          )
+        );
+      }
+
+      return ok(data);
+    } catch (error) {
+      return err(
+        errorFromException(
+          error instanceof Error ? error : new Error("Unknown error"),
+          "GUEST_LOAD_ERROR",
+          500
+        )
+      );
+    }
+  }
+
+  async createGuest(input: { email: string; fullName?: string }): Promise<Result<unknown>> {
+    try {
+      const { data, error } = await supabase
+        .from("guests")
+        .insert([input])
+        .select()
+        .single();
+
+      if (error) {
+        return err(
+          errorFromException(
+            new Error("Guest could not be created"),
+            "GUEST_CREATE_ERROR",
+            500
+          )
+        );
+      }
+
+      return ok(data);
+    } catch (error) {
+      return err(
+        errorFromException(
+          error instanceof Error ? error : new Error("Unknown error"),
+          "GUEST_CREATE_ERROR",
+          500
+        )
+      );
+    }
+  }
+
+  async updateGuest(id: string | number, input: Partial<{ nationality?: string; countryFlag?: string; nationalID?: string }>): Promise<Result<unknown>> {
+    try {
+      const { data, error } = await supabase
+        .from("guests")
+        .update(input)
+        .eq("id", id)
+        .select()
+        .single();
+
+      if (error) {
+        return err(
+          errorFromException(
+            new Error("Guest could not be updated"),
+            "GUEST_UPDATE_ERROR",
+            500
+          )
+        );
+      }
+
+      return ok(data);
+    } catch (error) {
+      return err(
+        errorFromException(
+          error instanceof Error ? error : new Error("Unknown error"),
+          "GUEST_UPDATE_ERROR",
+          500
+        )
+      );
+    }
   }
 }
 

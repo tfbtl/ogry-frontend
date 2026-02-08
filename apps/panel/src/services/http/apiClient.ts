@@ -1,6 +1,6 @@
 import type { Result } from "@ogrency/core";
 import { HttpClient } from "@ogrency/http";
-import { apiUrl } from "../../_composition/config";
+import { apiUrl } from "../../composition/config";
 
 const httpClient = new HttpClient({
   baseURL: apiUrl,

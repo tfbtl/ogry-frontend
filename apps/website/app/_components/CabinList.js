@@ -1,5 +1,5 @@
 import CabinCard from "@/app/_components/CabinCard";
-import { getCabins } from "@/app/_lib/data-service";
+import { getCabins } from "@/app/lib/data-service";
 import { unstable_noStore as noStore } from "next/cache";
 
 async function CabinList({ filter }) {

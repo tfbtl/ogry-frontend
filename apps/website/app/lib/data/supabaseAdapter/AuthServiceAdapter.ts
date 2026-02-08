@@ -2,7 +2,7 @@ import type { IAuthService } from "../../shared/interfaces/IAuthService";
 import type { Result } from "@ogrency/core";
 import type { AuthSession, LoginInput } from "../../shared/types/auth";
 import { ok, err, errorFromException, handleAuthError } from "../../shared/utils/errorHelpers";
-import { auth } from "../../../_server/auth";
+import { auth } from "../../../server/auth";
 
 /**
  * AuthServiceAdapter - NextAuth implementation of IAuthService

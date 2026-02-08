@@ -9,7 +9,7 @@ import {
   fetchGuestIds,
   fetchCabinIds,
   createBookings as createBookingsAdapter,
-} from "../services/data/su\u0070abaseAdapter/seed";
+} from "../devtools/seedData";
 import Button from "../ui/Button";
 import { subtractDates } from "../utils/helpers";
 

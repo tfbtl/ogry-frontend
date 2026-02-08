@@ -2,7 +2,7 @@ import type { ICabinService } from "../../shared/interfaces/ICabinService";
 import type { Result } from "@ogrency/core";
 import type { Cabin, CreateCabinInput, UpdateCabinInput } from "../../shared/types/cabin";
 import { ok, err, errorFromException } from "../../shared/utils/errorHelpers";
-import { supabase } from "../../../_server/supabase";
+import { supabase } from "../../../server/supabase";
 
 /**
  * CabinServiceAdapter - Supabase implementation of ICabinService
@@ -110,6 +110,39 @@ export class CabinServiceAdapter implements ICabinService {
         501
       )
     );
+  }
+
+  async getCabinPrice(id: string | number): Promise<Result<{ regularPrice: number; discount: number } | null>> {
+    try {
+      const { data, error } = await supabase
+        .from("cabins")
+        .select("regularPrice, discount")
+        .eq("id", id)
+        .single();
+
+      if (error) {
+        if (error.code === "PGRST116") {
+          return ok(null);
+        }
+        return err(
+          errorFromException(
+            new Error("Cabin price could not be loaded"),
+            "CABIN_PRICE_LOAD_ERROR",
+            500
+          )
+        );
+      }
+
+      return ok(data);
+    } catch (error) {
+      return err(
+        errorFromException(
+          error instanceof Error ? error : new Error("Unknown error"),
+          "CABIN_PRICE_LOAD_ERROR",
+          500
+        )
+      );
+    }
   }
 }
 

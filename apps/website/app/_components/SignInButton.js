@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { signInAction } from "../_lib/actions";
+import { signInAction } from "../lib/actions";
 
 function SignInButton() {
   return (

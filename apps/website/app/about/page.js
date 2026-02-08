@@ -1,6 +1,6 @@
 import Image from "next/image";
 import image1 from "@/public/about-1.jpg";
-import { getCabins } from "../_lib/data-service";
+import { getCabins } from "../lib/data-service";
 import Link from "next/link";
 
 export const metadata = {

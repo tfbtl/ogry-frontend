@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { updateGuestAction } from "../_lib/actions";
+import { updateGuestAction } from "../lib/actions";
 import { useFormStatus } from "react-dom";
 import SubmitButton from "./SubmitButton";
 

@@ -1,22 +1,18 @@
 import { eachDayOfInterval } from "date-fns";
 import { notFound } from "next/navigation";
 import { HttpClient } from "@ogrency/http";
-import {
-  fetchCabin,
-  fetchCabinPrice,
-  fetchCabins,
-  fetchGuest,
-  fetchBooking,
-  fetchBookings,
-  fetchBookedDates,
-  fetchSettings,
-  insertGuest,
-  insertBooking,
-  updateGuest as updateGuestAdapter,
-  updateBooking as updateBookingAdapter,
-  deleteBooking as deleteBookingAdapter,
-  ensureArrayData,
-} from "./data/su\u0070abaseAdapter";
+import { BookingServiceAdapter } from "./data/supabaseAdapter/BookingServiceAdapter";
+import { UserServiceAdapter } from "./data/supabaseAdapter/UserServiceAdapter";
+import { CabinServiceAdapter } from "./data/supabaseAdapter/CabinServiceAdapter";
+import { SettingsServiceAdapter } from "./data/supabaseAdapter/SettingsServiceAdapter";
+import { ensureArrayData } from "./shared/utils/arrayHelpers";
+
+// Initialize adapters
+const bookingAdapter = new BookingServiceAdapter();
+const userAdapter = new UserServiceAdapter();
+const cabinAdapter = new CabinServiceAdapter();
+const settingsAdapter = new SettingsServiceAdapter();
+
 /////////////
 // GET
 
@@ -35,13 +31,13 @@ export async function getCabin(id) {
 }
 
 export async function getCabinPrice(id) {
-  const { data, error } = await fetchCabinPrice(id);
+  const result = await cabinAdapter.getCabinPrice(id);
 
-  if (error) {
+  if (!result.ok) {
     return null;
   }
 
-  return data;
+  return result.data;
 }
 
 export const getCabins = async function () {
@@ -57,30 +53,34 @@ export const getCabins = async function () {
 
 // Guests are uniquely identified by their email address
 export async function getGuest(email) {
-  const { data } = await fetchGuest(email);
+  const result = await userAdapter.getGuestByEmail(email);
 
-  // No error here! We handle the possibility of no guest in the sign in callback
-  return data;
+  if (!result.ok) {
+    // No error here! We handle the possibility of no guest in the sign in callback
+    return null;
+  }
+
+  return result.data;
 }
 
 export async function getBooking(id) {
-  const { data, error } = await fetchBooking(id);
+  const result = await bookingAdapter.getBooking(id);
 
-  if (error) {
+  if (!result.ok) {
     throw new Error("Booking could not get loaded");
   }
 
-  return data;
+  return result.data;
 }
 
 export async function getBookings(guestId) {
-  const { data, error } = await fetchBookings(guestId);
+  const result = await bookingAdapter.getBookingsByGuestId(guestId);
 
-  if (error) {
+  if (!result.ok) {
     throw new Error("Bookings could not get loaded");
   }
 
-  return ensureArrayData(data, "Bookings could not get loaded");
+  return ensureArrayData(result.data, "Bookings could not get loaded");
 }
 
 export async function getBookedDatesByCabinId(cabinId) {
@@ -89,14 +89,14 @@ export async function getBookedDatesByCabinId(cabinId) {
   today = today.toISOString();
 
   // Getting all bookings
-  const { data, error } = await fetchBookedDates(cabinId, today);
+  const result = await bookingAdapter.getBookedDates(cabinId, today);
 
-  if (error) {
+  if (!result.ok) {
     throw new Error("Bookings could not get loaded");
   }
 
   // Converting to actual dates to be displayed in the date picker
-  const bookedDates = ensureArrayData(data, "Bookings could not get loaded")
+  const bookedDates = ensureArrayData(result.data, "Bookings could not get loaded")
     .map((booking) => {
       return eachDayOfInterval({
         start: new Date(booking.startDate),
@@ -135,23 +135,23 @@ export async function getCountries() {
 // CREATE
 
 export async function createGuest(newGuest) {
-  const { data, error } = await insertGuest(newGuest);
+  const result = await userAdapter.createGuest(newGuest);
 
-  if (error) {
+  if (!result.ok) {
     throw new Error("Guest could not be created");
   }
 
-  return data;
+  return result.data;
 }
 
 export async function createBooking(newBooking) {
-  const { data, error } = await insertBooking(newBooking);
+  const result = await bookingAdapter.createBooking(newBooking);
 
-  if (error) {
+  if (!result.ok) {
     throw new Error("Booking could not be created");
   }
 
-  return data;
+  return result.data;
 }
 
 /////////////
@@ -159,31 +159,31 @@ export async function createBooking(newBooking) {
 
 // The updatedFields is an object which should ONLY contain the updated data
 export async function updateGuest(id, updatedFields) {
-  const { data, error } = await updateGuestAdapter(id, updatedFields);
+  const result = await userAdapter.updateGuest(id, updatedFields);
 
-  if (error) {
+  if (!result.ok) {
     throw new Error("Guest could not be updated");
   }
-  return data;
+  return result.data;
 }
 
 export async function updateBooking(id, updatedFields) {
-  const { data, error } = await updateBookingAdapter(id, updatedFields);
+  const result = await bookingAdapter.updateBooking(id, updatedFields);
 
-  if (error) {
+  if (!result.ok) {
     throw new Error("Booking could not be updated");
   }
-  return data;
+  return result.data;
 }
 
 /////////////
 // DELETE
 
 export async function deleteBooking(id) {
-  const { data, error } = await deleteBookingAdapter(id);
+  const result = await bookingAdapter.deleteBooking(id);
 
-  if (error) {
+  if (!result.ok) {
     throw new Error("Booking could not be deleted");
   }
-  return data;
+  return undefined;
 }

@@ -7,8 +7,8 @@
  * Rules:
  * - Browser/public client only
  * - Singleton export
- * - Config injected from _composition/config.ts
- * - Server-side client remains in app/_server/supabase.js (DO NOT TOUCH)
+ * - Config injected from composition/config.ts
+ * - Server-side client remains in app/server/supabase.js (DO NOT TOUCH)
  */
 
 import { createSupabasePublicClient } from "@ogrency/supabase-public";

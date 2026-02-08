@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useReservation } from "./ReservationContext";
 import { differenceInDays } from "date-fns";
-import { createBookingAction } from "../_lib/actions";
+import { createBookingAction } from "../lib/actions";
 import SubmitButton from "./SubmitButton";
 
 function ReservationForm({ cabin, user }) {

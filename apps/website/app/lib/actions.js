@@ -1,16 +1,16 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { auth, signIn, signOut } from "../_server/auth";
+import { auth, signIn, signOut } from "../server/auth";
 import { redirect } from "next/navigation";
 import { getBookings } from "./data-service";
-import {
-  updateGuest as updateGuestAdapter,
-  insertBookingBasic as insertBookingAdapter,
-  deleteBooking as deleteBookingAdapter,
-  updateBooking as updateBookingAdapter,
-} from "./data/su\u0070abaseAdapter";
+import { BookingServiceAdapter } from "./data/supabaseAdapter/BookingServiceAdapter";
+import { UserServiceAdapter } from "./data/supabaseAdapter/UserServiceAdapter";
 import { emitAuthEvent } from "./auth/authEvents";
+
+// Initialize adapters
+const bookingAdapter = new BookingServiceAdapter();
+const userAdapter = new UserServiceAdapter();
 
 export async function updateGuestAction(formData) {
   const session = await auth();
@@ -27,9 +27,9 @@ export async function updateGuestAction(formData) {
 
   const updateData = { nationality, countryFlag, nationalID };
 
-  const { error } = await updateGuestAdapter(session.user.guestId, updateData);
+  const result = await userAdapter.updateGuest(session.user.guestId, updateData);
 
-  if (error) {
+  if (!result.ok) {
     throw new Error("Guest could not be updated");
   }
 
@@ -53,9 +53,9 @@ export async function createBookingAction(bookingData, formData) {
       status: "unconfirmed"
     }
 
-    const { error } = await insertBookingAdapter(newBooking);
+    const result = await bookingAdapter.createBookingBasic(newBooking);
   
-    if (error) {
+    if (!result.ok) {
       throw new Error("Booking could not be created");
     }
 
@@ -74,9 +74,9 @@ export async function deleteBookingAction(bookingId) {
   if (!guestBookingIds.includes(bookingId))
     throw new Error("You are not allowed to delete this booking");
 
-  const { error } = await deleteBookingAdapter(bookingId);
+  const result = await bookingAdapter.deleteBooking(bookingId);
 
-  if (error) {
+  if (!result.ok) {
     throw new Error("Booking could not be deleted");
   }
 
@@ -104,10 +104,10 @@ export async function updateBookingAction(formData) {
   };
 
   //4-Mutation
-  const { error } = await updateBookingAdapter(bookingId, updateData);
+  const result = await bookingAdapter.updateBooking(bookingId, updateData);
 
   //5-Error handling
-  if (error) {
+  if (!result.ok) {
     throw new Error("Booking could not be updated");
   }
 

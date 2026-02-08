@@ -265,9 +265,19 @@ if (relativePath.includes('apps/website/app/') &&
 ## 9. Commit & Push Information
 
 **Branch:** `main`  
-**Commit Hash:** (will be appended after commit)  
+**Commit Hash:** `0686df3`  
 **Commit Message:** `chore(fe): update gate to enforce v2.4.0 boundaries (FE-GATE-0003)`  
-**Push Status:** (will be updated after push)
+**Push Status:** ✅ PUSHED to `origin/main`
+
+**Commit Details:**
+- 2 files changed
+- 407 insertions(+)
+- 15 deletions(-)
+- Gate script updated (Rule A, B, D)
+- Documentation created
+
+**Remote:** `https://github.com/tfbtl/ogry-frontend.git`  
+**Push Range:** `2961ae2..0686df3`
 
 **Files Changed:**
 - `tools/gates/validate-env-and-imports.mjs` — Updated rules A, B, added rule D

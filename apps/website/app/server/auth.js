@@ -1,7 +1,7 @@
 import "server-only";
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
-import { createGuest, getGuest } from "../_lib/data-service";
+import { createGuest, getGuest } from "../lib/data-service";
 
 const authConfig = {
   providers: [
