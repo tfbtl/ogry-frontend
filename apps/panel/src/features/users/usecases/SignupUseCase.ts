@@ -1,6 +1,6 @@
-import type { IUserService } from "../../../shared/interfaces/IUserService";
+import type { IUserService } from "../../../lib/shared/interfaces/IUserService";
 import type { Result } from "@ogrency/core";
-import type { UserProfile, SignupInput } from "../../../shared/types/user";
+import type { UserProfile, SignupInput } from "../../../lib/shared/types/user";
 
 /**
  * SignupUseCase - Business logic for user registration

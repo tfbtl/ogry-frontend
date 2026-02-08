@@ -1,6 +1,6 @@
-import type { IAuthService } from "../../../shared/interfaces/IAuthService";
+import type { IAuthService } from "../../../lib/shared/interfaces/IAuthService";
 import type { Result } from "@ogrency/core";
-import type { AuthSession, LoginInput } from "../../../shared/types/auth";
+import type { AuthSession, LoginInput } from "../../../lib/shared/types/auth";
 
 /**
  * LoginUseCase - Business logic for user authentication

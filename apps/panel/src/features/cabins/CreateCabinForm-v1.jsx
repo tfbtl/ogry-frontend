@@ -9,7 +9,7 @@ import Textarea from "../../ui/Textarea";
 import FormRow from "../../ui/FormRow";
 
 import { useForm } from "react-hook-form";
-import { createCabin } from "../../services/apiCabins";
+import { createCabin } from "../../lib/services/apiCabins";
 
 function CreateCabinForm() {
   const { register, handleSubmit, reset, getValues, formState } = useForm();

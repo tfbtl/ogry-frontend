@@ -1,6 +1,6 @@
-import type { ICabinService } from "../../../shared/interfaces/ICabinService";
+import type { ICabinService } from "../../../lib/shared/interfaces/ICabinService";
 import type { Result } from "@ogrency/core";
-import type { Cabin, UpdateCabinInput } from "../../../shared/types/cabin";
+import type { Cabin, UpdateCabinInput } from "../../../lib/shared/types/cabin";
 
 /**
  * UpdateCabinUseCase - Business logic for updating an existing cabin

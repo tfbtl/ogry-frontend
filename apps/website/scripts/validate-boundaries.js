@@ -20,7 +20,7 @@ const repoRoot = join(__dirname, '..');
 
 // Target directories for website
 const TARGET_DIRS = [
-  'app/_components',
+  'app/lib/components',
   'app/(routes)'
 ];
 

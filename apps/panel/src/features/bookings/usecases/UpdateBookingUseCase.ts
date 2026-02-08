@@ -1,6 +1,6 @@
-import type { IBookingService } from "../../../shared/interfaces/IBookingService";
+import type { IBookingService } from "../../../lib/shared/interfaces/IBookingService";
 import type { Result } from "@ogrency/core";
-import type { Booking, BookingInput } from "../../../shared/types/booking";
+import type { Booking, BookingInput } from "../../../lib/shared/types/booking";
 
 /**
  * UpdateBookingUseCase - Business logic for updating a booking

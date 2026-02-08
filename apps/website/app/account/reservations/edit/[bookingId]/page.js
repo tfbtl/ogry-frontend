@@ -1,4 +1,4 @@
-import SubmitButton from "@/app/_components/SubmitButton";
+import SubmitButton from "@/app/lib/components/SubmitButton";
 import { updateBookingAction } from "@/app/lib/actions";
 import { getBooking, getCabin } from "@/app/lib/data-service";
 

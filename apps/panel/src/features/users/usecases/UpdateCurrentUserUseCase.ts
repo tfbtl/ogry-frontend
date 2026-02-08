@@ -1,6 +1,6 @@
-import type { IUserService } from "../../../shared/interfaces/IUserService";
+import type { IUserService } from "../../../lib/shared/interfaces/IUserService";
 import type { Result } from "@ogrency/core";
-import type { UserProfile, UpdateUserInput } from "../../../shared/types/user";
+import type { UserProfile, UpdateUserInput } from "../../../lib/shared/types/user";
 
 /**
  * UpdateCurrentUserUseCase - Business logic for updating user profile

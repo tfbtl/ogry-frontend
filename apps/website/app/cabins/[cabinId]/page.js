@@ -1,7 +1,7 @@
-import Cabin from "@/app/_components/Cabin";
-import Reservation from "@/app/_components/Reservation";
-import Spinner from "@/app/_components/Spinner";
-import TextExpander from "@/app/_components/TextExpander";
+import Cabin from "@/app/lib/components/Cabin";
+import Reservation from "@/app/lib/components/Reservation";
+import Spinner from "@/app/lib/components/Spinner";
+import TextExpander from "@/app/lib/components/TextExpander";
 import { getCabin, getCabins } from "@/app/lib/data-service";
 import { EyeSlashIcon, MapPinIcon, UsersIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";

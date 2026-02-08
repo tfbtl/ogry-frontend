@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useDarkMode } from "../context/useDarkMode";
+import { useDarkMode } from "../lib/context/useDarkMode";
 
 const StyledLogo = styled.div`
   text-align: center;

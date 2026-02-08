@@ -1,4 +1,4 @@
-import type { ICabinService } from "../../../shared/interfaces/ICabinService";
+import type { ICabinService } from "../../../lib/shared/interfaces/ICabinService";
 import type { Result } from "@ogrency/core";
 
 /**

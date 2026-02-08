@@ -1,5 +1,5 @@
-import SelectCountry from "@/app/_components/SelectCountry";
-import UpdateProfileForm from "@/app/_components/UpdateProfileForm";
+import SelectCountry from "@/app/lib/components/SelectCountry";
+import UpdateProfileForm from "@/app/lib/components/UpdateProfileForm";
 import { auth } from "@/app/server/auth";
 import { getGuest } from "@/app/lib/data-service";
 

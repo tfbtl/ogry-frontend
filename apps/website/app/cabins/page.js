@@ -1,8 +1,8 @@
 import { Suspense } from "react";
-import CabinList from "../_components/CabinList";
-import Spinner from "../_components/Spinner";
-import Filter from "../_components/Filter";
-import ReservationReminder from "../_components/ReservationReminder";
+import CabinList from "../lib/components/CabinList";
+import Spinner from "../lib/components/Spinner";
+import Filter from "../lib/components/Filter";
+import ReservationReminder from "../lib/components/ReservationReminder";
 
 //export const revalidate = 0;
 

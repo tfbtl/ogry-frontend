@@ -1,4 +1,4 @@
-import type { IAuthService } from "../../../shared/interfaces/IAuthService";
+import type { IAuthService } from "../../../lib/shared/interfaces/IAuthService";
 import type { Result } from "@ogrency/core";
 
 /**

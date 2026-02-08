@@ -8,7 +8,7 @@ import {
   ResponsiveContainer,
   Tooltip,
 } from "recharts";
-import { useDarkMode } from "../../context/useDarkMode";
+import { useDarkMode } from "../../lib/context/useDarkMode";
 
 const ChartBox = styled.div`
   /* Box */

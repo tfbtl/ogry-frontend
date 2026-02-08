@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
-import { updateCabinUseCase } from "../../shared/composition/cabinUseCases";
+import { updateCabinUseCase } from "../../lib/shared/composition/cabinUseCases";
 
 export function useEditCabin() {
   const queryClient = useQueryClient();

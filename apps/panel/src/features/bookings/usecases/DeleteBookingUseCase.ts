@@ -1,4 +1,4 @@
-import type { IBookingService } from "../../../shared/interfaces/IBookingService";
+import type { IBookingService } from "../../../lib/shared/interfaces/IBookingService";
 import type { Result } from "@ogrency/core";
 
 /**

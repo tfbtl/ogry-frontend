@@ -229,8 +229,8 @@ function isServerComponentOrAction(filePath, content) {
       !content.includes('"use client"') && !content.includes("'use client'")) {
     return true;
   }
-  // Server components (no "use client" directive)
-  if (normalizedPath.includes('/_components/') && 
+  // Server components (no "use client" directive) — _components or lib/components
+  if ((normalizedPath.includes('/_components/') || normalizedPath.includes('/lib/components/')) &&
       !content.includes('"use client"') && !content.includes("'use client'")) {
     return true;
   }

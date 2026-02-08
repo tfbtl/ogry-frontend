@@ -95,28 +95,30 @@ Allowlist’te **olmayan** bir 1. seviye klasör, aşağıdakilerden **en az bir
 
 ## Mevcut repoda tespit edilen ihlaller (gate çalıştırıldığında FAIL)
 
-Allowlist **genişletilmedi**. Aşağıdaki klasörler gate’e göre ihlal; refactor önerisi ile raporlanıyor.
+**Durum (FE-STRUCTURE-ALIGN-0001 sonrası):** Tüm ihlaller giderildi. `pnpm -w run validate:folder-structure` **PASS** (0 ihlal). Allowlist genişletilmedi; taşıma/refactor ile uyum sağlandı.
 
-### Website — apps/website/app/
+*(Aşağıdaki tablolar geçmiş referans içindir; refactor önerileri FE-STRUCTURE-ALIGN-0001 ile uygulandı.)*
 
-| Klasör | Sebep | Öneri |
+### Website — apps/website/app/ (giderildi)
+
+| Klasör | Sebep | Yapılan |
 |--------|--------|--------|
-| _components | "_" ile başlıyor | Yeniden adlandır: `components` veya `app/lib/components` altına taşı. |
-| _styles | "_" ile başlıyor | Yeniden adlandır: `styles` veya `app/lib/styles` / global stiller layout ile kalabilir. |
+| _components | "_" ile başlıyor | `app/lib/components` altına taşındı. |
+| _styles | "_" ile başlıyor | İçerik `app/globals.css` ile birleştirildi; klasör kaldırıldı. |
 
-### Panel — apps/panel/src/
+### Panel — apps/panel/src/ (giderildi)
 
-| Klasör | Sebep | Öneri |
+| Klasör | Sebep | Yapılan |
 |--------|--------|--------|
-| context | Allowlist dışı | `lib/context` veya `features/.../context` altına taşı. |
-| data | Allowlist dışı | `lib/data` veya `features` içinde ilgili yere taşı. |
-| hooks | Allowlist dışı | `lib/hooks` altına taşı. |
-| pages | Allowlist dışı | Router yapısına göre `features` içinde sayfa bileşenleri veya `lib` altında tutulabilir; Blueprint ile uyumlu tek isim: allowlist’teki klasörler. |
-| services | Allowlist dışı | `lib/services` altına taşı. |
-| shared | Allowlist dışı | `lib/shared` altına taşı. |
-| utils | Allowlist dışı | `lib/utils` altına taşı. |
+| context | Allowlist dışı | `lib/context` altına taşındı. |
+| data | Allowlist dışı | `lib/data` altına taşındı. |
+| hooks | Allowlist dışı | `lib/hooks` altına taşındı. |
+| pages | Allowlist dışı | `features/pages` altına taşındı. |
+| services | Allowlist dışı | `lib/services` altına taşındı. |
+| shared | Allowlist dışı | `lib/shared` altına taşındı. |
+| utils | Allowlist dışı | `lib/utils` altına taşındı. |
 
-**Not:** Bu ihlaller giderilmeden `pnpm -w run validate:folder-structure` **PASS** etmez. Gate kirliliği meşrulaştırılmadı; taşıma / yeniden adlandırma yapılmalı.
+
 
 ---
 
@@ -144,8 +146,9 @@ Exit code: **1**.
 
 ---
 
-## Doğrulama (bu PR)
+## Doğrulama (FE-STRUCTURE-ALIGN-0001 sonrası)
 
-- **validate:folder-structure:** Mevcut repo ile **FAIL** (9 ihlal; doc’taki “Mevcut repoda tespit edilen ihlaller” giderilene kadar PASS olmaz).
+- **validate:folder-structure:** **PASS** (0 ihlal).
+- **validate:env-imports:** PASS.
 - **lint:** PASS.
-- **build:** PASS.
+- **build:** PASS (panel + website).

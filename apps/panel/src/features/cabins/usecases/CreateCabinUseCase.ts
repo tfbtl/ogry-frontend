@@ -1,6 +1,6 @@
-import type { ICabinService } from "../../../shared/interfaces/ICabinService";
+import type { ICabinService } from "../../../lib/shared/interfaces/ICabinService";
 import type { Result } from "@ogrency/core";
-import type { Cabin, CreateCabinInput } from "../../../shared/types/cabin";
+import type { Cabin, CreateCabinInput } from "../../../lib/shared/types/cabin";
 
 /**
  * CreateCabinUseCase - Business logic for creating a new cabin

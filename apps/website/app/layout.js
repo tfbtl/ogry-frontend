@@ -1,5 +1,5 @@
-import Logo from "@/app/_components/Logo";
-import Navigation from "@/app/_components/Navigation";
+import Logo from "@/app/lib/components/Logo";
+import Navigation from "@/app/lib/components/Navigation";
 
 import { Josefin_Sans } from "next/font/google";
 
@@ -8,9 +8,9 @@ const josefin = Josefin_Sans({
   display: "swap",
 });
 
-import "./_styles/globals.css";
-import Header from "./_components/Header";
-import { ReservationProvider } from "./_components/ReservationContext";
+import "./globals.css";
+import Header from "./lib/components/Header";
+import { ReservationProvider } from "./lib/components/ReservationContext";
 
 export const metadata = {
   // title: "The Wild Oasis",

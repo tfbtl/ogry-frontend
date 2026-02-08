@@ -5,7 +5,7 @@ import {
   HiOutlineChartBar,
 } from "react-icons/hi2";
 import Stat from "./Stat";
-import { formatCurrency } from "../../utils/helpers";
+import { formatCurrency } from "../../lib/utils/helpers";
 
 function Stats({ bookings, confirmedStays, numDays, cabinCount }) {
   // 1.

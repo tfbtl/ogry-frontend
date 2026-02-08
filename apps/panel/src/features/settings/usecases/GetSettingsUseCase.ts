@@ -1,6 +1,6 @@
-import type { ISettingsService } from "../../../shared/interfaces/ISettingsService";
+import type { ISettingsService } from "../../../lib/shared/interfaces/ISettingsService";
 import type { Result } from "@ogrency/core";
-import type { Settings } from "../../../shared/types/settings";
+import type { Settings } from "../../../lib/shared/types/settings";
 
 /**
  * GetSettingsUseCase - Business logic for retrieving settings

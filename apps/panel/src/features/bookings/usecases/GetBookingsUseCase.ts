@@ -1,6 +1,6 @@
-import type { IBookingService } from "../../../shared/interfaces/IBookingService";
+import type { IBookingService } from "../../../lib/shared/interfaces/IBookingService";
 import type { Result } from "@ogrency/core";
-import type { Booking } from "../../../shared/types/booking";
+import type { Booking } from "../../../lib/shared/types/booking";
 
 /**
  * GetBookingsUseCase - Business logic for retrieving all bookings

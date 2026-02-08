@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getCabinsUseCase } from "../../shared/composition/cabinUseCases";
+import { getCabinsUseCase } from "../../lib/shared/composition/cabinUseCases";
 
 export function useCabins() {
   const {

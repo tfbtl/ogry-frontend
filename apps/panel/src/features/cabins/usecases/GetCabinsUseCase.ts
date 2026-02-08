@@ -1,6 +1,6 @@
-import type { ICabinService } from "../../../shared/interfaces/ICabinService";
+import type { ICabinService } from "../../../lib/shared/interfaces/ICabinService";
 import type { Result } from "@ogrency/core";
-import type { Cabin } from "../../../shared/types/cabin";
+import type { Cabin } from "../../../lib/shared/types/cabin";
 
 /**
  * GetCabinsUseCase - Business logic for retrieving all cabins
